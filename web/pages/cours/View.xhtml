@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CoursViewDlg" widgetVar="CoursViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCoursTitle}">
+            <h:form id="CoursViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{coursController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCoursLabel_id}"/>
+                        <h:outputText value="#{coursController.selected.id}" title="#{bundle.ViewCoursTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewCoursLabel_nomCours}"/>
+                        <h:outputText value="#{coursController.selected.nomCours}" title="#{bundle.ViewCoursTitle_nomCours}"/>
+                        <h:outputText value="#{bundle.ViewCoursLabel_planing}"/>
+                        <h:outputText value="#{coursController.selected.planing}" title="#{bundle.ViewCoursTitle_planing}"/>
+                        <h:outputText value="#{bundle.ViewCoursLabel_abonnement}"/>
+                        <h:outputText value="#{coursController.selected.abonnement}" title="#{bundle.ViewCoursTitle_abonnement}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CoursViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

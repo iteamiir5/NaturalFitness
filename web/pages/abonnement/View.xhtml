@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AbonnementViewDlg" widgetVar="AbonnementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAbonnementTitle}">
+            <h:form id="AbonnementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{abonnementController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAbonnementLabel_id}"/>
+                        <h:outputText value="#{abonnementController.selected.id}" title="#{bundle.ViewAbonnementTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewAbonnementLabel_idAdherent}"/>
+                        <h:outputText value="#{abonnementController.selected.idAdherent}" title="#{bundle.ViewAbonnementTitle_idAdherent}"/>
+                        <h:outputText value="#{bundle.ViewAbonnementLabel_idCours}"/>
+                        <h:outputText value="#{abonnementController.selected.idCours}" title="#{bundle.ViewAbonnementTitle_idCours}"/>
+                        <h:outputText value="#{bundle.ViewAbonnementLabel_dateDebut}"/>
+                        <h:outputText value="#{abonnementController.selected.dateDebut}" title="#{bundle.ViewAbonnementTitle_dateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAbonnementLabel_dateFin}"/>
+                        <h:outputText value="#{abonnementController.selected.dateFin}" title="#{bundle.ViewAbonnementTitle_dateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAbonnementLabel_prix}"/>
+                        <h:outputText value="#{abonnementController.selected.prix}" title="#{bundle.ViewAbonnementTitle_prix}"/>
+                        <h:outputText value="#{bundle.ViewAbonnementLabel_adherent}"/>
+                        <h:outputText value="#{abonnementController.selected.adherent}" title="#{bundle.ViewAbonnementTitle_adherent}"/>
+                        <h:outputText value="#{bundle.ViewAbonnementLabel_cours}"/>
+                        <h:outputText value="#{abonnementController.selected.cours}" title="#{bundle.ViewAbonnementTitle_cours}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AbonnementViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

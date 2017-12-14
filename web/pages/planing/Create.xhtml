@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PlaningCreateDlg" widgetVar="PlaningCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePlaningTitle}">
+            <h:form id="PlaningCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{planingController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePlaningLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{planingController.selected.id}" title="#{bundle.CreatePlaningTitle_id}" required="true" requiredMessage="#{bundle.CreatePlaningRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreatePlaningLabel_idCours}" for="idCours" />
+                        <p:inputText id="idCours" value="#{planingController.selected.idCours}" title="#{bundle.CreatePlaningTitle_idCours}" />
+                        <p:outputLabel value="#{bundle.CreatePlaningLabel_datePlaning}" for="datePlaning" />
+                        <p:calendar id="datePlaning" pattern="MM/dd/yyyy" value="#{planingController.selected.datePlaning}" title="#{bundle.EditPlaningTitle_datePlaning}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePlaningLabel_heureD}" for="heureD" />
+                        <p:inputText id="heureD" value="#{planingController.selected.heureD}" title="#{bundle.CreatePlaningTitle_heureD}" />
+                        <p:outputLabel value="#{bundle.CreatePlaningLabel_heureF}" for="heureF" />
+                        <p:inputText id="heureF" value="#{planingController.selected.heureF}" title="#{bundle.CreatePlaningTitle_heureF}" />
+                        <p:outputLabel value="#{bundle.CreatePlaningLabel_cours}" for="cours" />
+                        <p:selectOneMenu id="cours" value="#{planingController.selected.cours}" required="true" requiredMessage="#{bundle.EditPlaningRequiredMessage_cours}">
+                            <f:selectItems value="#{coursController.itemsAvailableSelectOne}"
+                                           var="coursItem"
+                                           itemValue="#{coursItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{planingController.create}" value="#{bundle.Save}" update="display,:PlaningListForm:datalist,:growl" oncomplete="handleSubmit(args,'PlaningCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PlaningCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

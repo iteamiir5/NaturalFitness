@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CoursCreateDlg" widgetVar="CoursCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCoursTitle}">
+            <h:form id="CoursCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{coursController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCoursLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{coursController.selected.id}" title="#{bundle.CreateCoursTitle_id}" required="true" requiredMessage="#{bundle.CreateCoursRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateCoursLabel_nomCours}" for="nomCours" />
+                        <p:inputText id="nomCours" value="#{coursController.selected.nomCours}" title="#{bundle.CreateCoursTitle_nomCours}" />
+                        <p:outputLabel value="#{bundle.CreateCoursLabel_planing}" for="planing" />
+                        <p:selectOneMenu id="planing" value="#{coursController.selected.planing}" >
+                            <f:selectItems value="#{planingController.itemsAvailableSelectOne}"
+                                           var="planingItem"
+                                           itemValue="#{planingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCoursLabel_abonnement}" for="abonnement" />
+                        <p:selectOneMenu id="abonnement" value="#{coursController.selected.abonnement}" >
+                            <f:selectItems value="#{abonnementController.itemsAvailableSelectOne}"
+                                           var="abonnementItem"
+                                           itemValue="#{abonnementItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{coursController.create}" value="#{bundle.Save}" update="display,:CoursListForm:datalist,:growl" oncomplete="handleSubmit(args,'CoursCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CoursCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

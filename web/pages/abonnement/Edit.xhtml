@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AbonnementEditDlg" widgetVar="AbonnementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAbonnementTitle}">
+            <h:form id="AbonnementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{abonnementController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAbonnementLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{abonnementController.selected.id}" title="#{bundle.EditAbonnementTitle_id}" required="true" requiredMessage="#{bundle.EditAbonnementRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditAbonnementLabel_idAdherent}" for="idAdherent" />
+                        <p:inputText id="idAdherent" value="#{abonnementController.selected.idAdherent}" title="#{bundle.EditAbonnementTitle_idAdherent}" />
+                        <p:outputLabel value="#{bundle.EditAbonnementLabel_idCours}" for="idCours" />
+                        <p:inputText id="idCours" value="#{abonnementController.selected.idCours}" title="#{bundle.EditAbonnementTitle_idCours}" />
+                        <p:outputLabel value="#{bundle.EditAbonnementLabel_dateDebut}" for="dateDebut" />
+                        <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{abonnementController.selected.dateDebut}" title="#{bundle.EditAbonnementTitle_dateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAbonnementLabel_dateFin}" for="dateFin" />
+                        <p:calendar id="dateFin" pattern="MM/dd/yyyy" value="#{abonnementController.selected.dateFin}" title="#{bundle.EditAbonnementTitle_dateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAbonnementLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{abonnementController.selected.prix}" title="#{bundle.EditAbonnementTitle_prix}" />
+                        <p:outputLabel value="#{bundle.EditAbonnementLabel_adherent}" for="adherent" />
+                        <p:selectOneMenu id="adherent" value="#{abonnementController.selected.adherent}" required="true" requiredMessage="#{bundle.EditAbonnementRequiredMessage_adherent}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adherentController.itemsAvailableSelectOne}"
+                                           var="adherentItem"
+                                           itemValue="#{adherentItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAbonnementLabel_cours}" for="cours" />
+                        <p:selectOneMenu id="cours" value="#{abonnementController.selected.cours}" required="true" requiredMessage="#{bundle.EditAbonnementRequiredMessage_cours}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{coursController.itemsAvailableSelectOne}"
+                                           var="coursItem"
+                                           itemValue="#{coursItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{abonnementController.update}" value="#{bundle.Save}" update="display,:AbonnementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AbonnementEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AbonnementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

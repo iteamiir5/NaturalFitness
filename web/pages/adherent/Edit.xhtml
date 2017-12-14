@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdherentEditDlg" widgetVar="AdherentEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAdherentTitle}">
+            <h:form id="AdherentEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{adherentController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAdherentLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{adherentController.selected.id}" title="#{bundle.EditAdherentTitle_id}" required="true" requiredMessage="#{bundle.EditAdherentRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditAdherentLabel_cin}" for="cin" />
+                        <p:inputText id="cin" value="#{adherentController.selected.cin}" title="#{bundle.EditAdherentTitle_cin}" />
+                        <p:outputLabel value="#{bundle.EditAdherentLabel_sexe}" for="sexe" />
+                        <p:inputText id="sexe" value="#{adherentController.selected.sexe}" title="#{bundle.EditAdherentTitle_sexe}" />
+                        <p:outputLabel value="#{bundle.EditAdherentLabel_dateNaissance}" for="dateNaissance" />
+                        <p:calendar id="dateNaissance" pattern="MM/dd/yyyy" value="#{adherentController.selected.dateNaissance}" title="#{bundle.EditAdherentTitle_dateNaissance}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAdherentLabel_utilisateur}" for="utilisateur" />
+                        <p:selectOneMenu id="utilisateur" value="#{adherentController.selected.utilisateur}" required="true" requiredMessage="#{bundle.EditAdherentRequiredMessage_utilisateur}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{utilisateurController.itemsAvailableSelectOne}"
+                                           var="utilisateurItem"
+                                           itemValue="#{utilisateurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAdherentLabel_abonnement}" for="abonnement" />
+                        <p:selectOneMenu id="abonnement" value="#{adherentController.selected.abonnement}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{abonnementController.itemsAvailableSelectOne}"
+                                           var="abonnementItem"
+                                           itemValue="#{abonnementItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adherentController.update}" value="#{bundle.Save}" update="display,:AdherentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdherentEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AdherentEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
